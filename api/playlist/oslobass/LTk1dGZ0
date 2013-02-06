@@ -1,0 +1,10 @@
+{
+	id       : "LTk1dGZ0",
+	name     : "Oh, that sound of male ego",
+	author   : "lafa",
+	schedules: ["oslobass/NsaDU"],
+	tracks   : [
+		"48a24b70a0b376535542b996af517398",
+		"6d7fce9fee471194aa8b5b6e47267f03"
+	]
+}

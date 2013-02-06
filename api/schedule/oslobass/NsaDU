@@ -1,0 +1,8 @@
+ {
+	name     : "Drinking is not a spectator sport",
+	selector : "",
+	start    : "2013-02-05T22:00:00Z",
+	end      : "2013-02-06T04:00:00Z",
+	repeat   : false,
+	playlists: ["oslobass/DMxCgbHM", "oslobass/LTk1dGZ0"]
+}
