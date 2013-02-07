@@ -2,9 +2,7 @@ define(
 	["backbone",
 	 "plugin/user"
 	],
-	function(Backbone, user) {
-		console.log("plugin: index");
-
+	function(Backbone, User) {
 		if (!user.loggedIn()) {
 			return {};
 		}

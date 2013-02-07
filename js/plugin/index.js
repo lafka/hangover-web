@@ -1,11 +1,12 @@
 define(
 	["backbone",
+	 "plugin/page",
 	 "plugin/user"
 	],
-	function(Backbone, user) {
-		console.log("plugin: index");
+	function(Backbone, Page, User) {
+		Page.addNav("main", "/", "Home", "Home");
 
-		if (!user.loggedIn()) {
+		if (!User.loggedIn()) {
 			return {};
 		}
 

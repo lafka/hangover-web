@@ -1,20 +1,19 @@
 define(
 	["backbone",
 	 "zepto",
+	 "plugin/page",
 	 "plugin/index",
 	 "plugin/tracks",
 	 "plugin/schedule",
 	 "plugin/playlist",
 	 "plugin/user"
 	],
-	function(Backbone, $) {
+	function(Backbone, $, Page) {
 		// arguments is not a real array...
-		var plugins = Array.prototype.slice.call(arguments, 2);
+		var plugins = Array.prototype.slice.call(arguments, 3);
 
 		var obj = {};
 		obj.initialize = function() {
-			console.log('hangover: init');
-
 			var filterFun = function(A) {
 				return 'object' == typeof(A) && _.has(A, "router");
 			};
@@ -35,6 +34,8 @@ define(
 			var routes = _.each(_.filter(plugins, filterFun), callback);
 
 			Backbone.history.start();
+
+			Page.nav.main.render();
 		};
 
 		return obj;

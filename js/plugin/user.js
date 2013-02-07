@@ -1,10 +1,11 @@
 define(
 	["backbone",
-	 "cookie"
+	 "cookie",
+	 "plugin/page"
 	],
-	function(Backbone, Cookie) {
+	function(Backbone, Cookie, Page) {
 		Cookie = window.Cookie; // fuck me right?
-		console.log("plugin: user.js");
+		Page.addNavbar("meta", $("#meta-navbar"));
 
 		var ret = {
 			loggedIn : function() { return null != Cookie.get("_hou"); }
@@ -19,6 +20,7 @@ define(
 		} else {
 			routes = {'' : 'login'};
 			ret.defaultRoute = 'user/login';
+			Page.addNav("meta", "/user/login", "Login");
 		}
 
 		var UserRouter = Backbone.Router.extend({
@@ -26,6 +28,7 @@ define(
 		});
 
 		ret.router       = new UserRouter();
+		Page.nav.meta.render();
 
 		return ret;
 	}
