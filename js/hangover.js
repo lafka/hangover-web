@@ -20,9 +20,7 @@ define(
 			};
 
 			var callback = function(A) {
-				var B = A.router.routes;
-				var routes =_.zip(_.keys(B), _.values(B));
-				_.each(routes, function(X) {
+				_.each(_.pairs(A.router.routes), function(X) {
 					X[0] = X[0] || (A.defaultRoute || 'index');
 					A.router.on('route:' + X[1], function() {
 						console.log('ev: ' + X[1] + "; load: " + X[0]);
