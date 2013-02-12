@@ -21,13 +21,12 @@ define(
 			var callback = function(A) {
 				_.each(_.pairs(A.router.routes), function(X) {
 					X[0] = ('/' == X[0] ? 'index' : X[0]) || (A.defaultRoute || 'index');
-					console.log('listen for: route:' + X[1]);
 					A.router.on('route:' + X[1], function() {
 						var plugin = X[0].split("/");
 						var view = 'plugin/' + plugin[0] + '/view/' + plugin.slice(1).join("/")
 						require([view], function(PartialView) {
-							view = new PartialView({el: $("#content")});
-							view.render();
+							App.View.current = new PartialView({el: $("#content")});
+							App.View.current.render();
 						});
 					});
 				});
