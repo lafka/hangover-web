@@ -5,11 +5,19 @@ define(
 	function(Backbone, App) {
 		var view = Backbone.View.extend({
 			model: App.Model.authentication,
-			initialize: function() { },
-			template: _.template(' \
+			warning: undefined,
+			initialize: function() {
+			},
+			template: ' \
 				<form id="login" class="form-horizontal"> \
 					<fieldset> \
 						<legend>Login</legend> \
+						<% if (warning) { %> \
+							<div class="alert alert-error"> \
+								<h4>Warning!</h4> \
+								<%= warning %> \
+							</div> \
+						<% } %> \
 						<div class="control-group"> \
 							<label class="control-label" for="input-user">Username</label> \
 							<div class="controls"> \

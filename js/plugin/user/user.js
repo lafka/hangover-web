@@ -36,7 +36,23 @@ define(
 			}
 		});
 
+		var userModel = Backbone.Model.extend({
+			defaults: {
+				username: "",
+				password: "",
+				email: "",
+				phone: "",
+			},
+			initialize: function() {
+				this.set("username", App.Model.authentication.get("username"));
+				this.url = "api/user/" + this.get("username");
+				this.fetch();
+			},
+		});
+
 		App.Model.authentication = new authModel();
+		App.Model.user = new userModel();
+
 		App.View.meta_nav = new Menu();
 		App.View.meta_nav.render({el: $("#meta-navbar")});
 
