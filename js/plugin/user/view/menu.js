@@ -1,7 +1,7 @@
 define(
 	["backbone",
 	 "plugin/app",
-	 "plugin/user"
+	 "plugin/user/user"
 	],
 	function(Backbone, App, User) {
 		var view = Backbone.View.extend({

@@ -3,10 +3,10 @@ define(
 	 "zepto",
 	 "plugin/app",
 	 "plugin/index",
-	 "plugin/tracks",
-	 "plugin/schedule",
-	 "plugin/playlist",
-	 "plugin/user"
+	 "plugin/tracks/tracks",
+	 "plugin/schedule/schedule",
+	 "plugin/playlist/playlist",
+	 "plugin/user/user"
 	],
 	function(Backbone, $, App) {
 		// arguments is not a real array...
@@ -23,8 +23,9 @@ define(
 					X[0] = ('/' == X[0] ? 'index' : X[0]) || (A.defaultRoute || 'index');
 					console.log('listen for: route:' + X[1]);
 					A.router.on('route:' + X[1], function() {
-						require(['view/' + X[0]], function(PartialView) {
-							console.log("view/" + X[0]);
+						var plugin = X[0].split("/");
+						var view = 'plugin/' + plugin[0] + '/view/' + plugin.slice(1).join("/")
+						require([view], function(PartialView) {
 							view = new PartialView({el: $("#content")});
 							view.render();
 						});

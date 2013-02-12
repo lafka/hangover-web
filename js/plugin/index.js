@@ -1,7 +1,7 @@
 define(
 	["backbone",
 	 "plugin/app",
-	 "plugin/user"
+	 "plugin/user/user"
 	],
 	function(Backbone, App, User) {
 		App.addNav("main", "/", "Home", "Home");

@@ -2,7 +2,7 @@ define(
 	["backbone",
 	 "cookie",
 	 "plugin/app",
-	 "view/user/menu"
+	 "plugin/user/view/menu"
 	],
 	function(Backbone, Cookie, App, Menu) {
 		Cookie = window.Cookie; // fuck me right?
