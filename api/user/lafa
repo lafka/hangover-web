@@ -1,7 +1,3 @@
-{
-	name      : "lafa",
-	schedules : ["oslobass/NsaDU","oslobass/YWxrZ"],
-	playlists : ["oslobass/DMxCgbHM","oslobass/LTk1dGZ0","oslobass/MxM3NhZG"],
-}
+{ "id" : 1, "username" : "lafa", "email" : "lafa@hackeriet.no", "phone" : "99988777" }
 
 
