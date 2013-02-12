@@ -4,15 +4,17 @@ define(
 	],
 	function(Backbone, Nav) {
 		var plugin = {
-			nav: {}
+			Nav:   {},
+			Model: {},
+			View:  {}
 		};
 
 		plugin.addNavbar = function(nav, target) {
-			plugin.nav[nav] = new Nav({el: target});
+			plugin.Nav[nav] = new Nav({el: target});
 		};
 
 		plugin.addNav = function(navbar, link, text, title) {
-			plugin.nav[navbar].addNav.call(plugin.nav[navbar], link, text, title);
+			plugin.Nav[navbar].addNav.call(plugin.Nav[navbar], link, text, title);
 		};
 
 		plugin.addNavbar("main", $("#navbar"));

@@ -1,19 +1,16 @@
 define(
 	["backbone",
-	 "plugin/page",
+	 "plugin/app",
 	 "plugin/user"
 	],
-	function(Backbone, Page, User) {
-		Page.addNav("main", "/", "Home", "Home");
-
-		if (!User.loggedIn()) {
-			return {};
-		}
+	function(Backbone, App, User) {
+		App.addNav("main", "/", "Home", "Home");
 
 		var IndexRouter = Backbone.Router.extend({
 			routes: {
 				'': 'index',
-			}
+			},
+			defaultRoute: 'index'
 		});
 
 		return {router : new IndexRouter()};

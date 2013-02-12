@@ -3,22 +3,14 @@ define(
 	 "plugin/user"
 	],
 	function(Backbone, User) {
-		if (!user.loggedIn()) {
-			return {};
-		}
-
-		var IndexRouter = Backbone.Router.extend({
-			routes: {
-				'': 'index',
+		var view = Backbone.View.extend({
+			initialize: function() {
+			},
+			render: function() {
+				this.$el.html('<h1>hello joe</h1><p>i\'m the index!</p>');
 			}
 		});
 
-		var router = new IndexRouter();
-
-		router.on('route:index', function() {
-			console.log("yay!!!!");
-		});
-
-		return {};
+		return view;
 	}
 );

@@ -1,14 +1,14 @@
 define(
 	["backbone",
 	 "zepto",
-	 "plugin/page",
+	 "plugin/app",
 	 "plugin/index",
 	 "plugin/tracks",
 	 "plugin/schedule",
 	 "plugin/playlist",
 	 "plugin/user"
 	],
-	function(Backbone, $, Page) {
+	function(Backbone, $, App) {
 		// arguments is not a real array...
 		var plugins = Array.prototype.slice.call(arguments, 3);
 
@@ -20,11 +20,12 @@ define(
 
 			var callback = function(A) {
 				_.each(_.pairs(A.router.routes), function(X) {
-					X[0] = X[0] || (A.defaultRoute || 'index');
+					X[0] = ('/' == X[0] ? 'index' : X[0]) || (A.defaultRoute || 'index');
+					console.log('listen for: route:' + X[1]);
 					A.router.on('route:' + X[1], function() {
-						console.log('ev: ' + X[1] + "; load: " + X[0]);
 						require(['view/' + X[0]], function(PartialView) {
-							view = new PartialView({el: $("body")});
+							console.log("view/" + X[0]);
+							view = new PartialView({el: $("#content")});
 							view.render();
 						});
 					});
@@ -35,7 +36,7 @@ define(
 
 			Backbone.history.start();
 
-			Page.nav.main.render();
+			App.Nav.main.render();
 		};
 
 		return obj;
