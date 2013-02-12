@@ -32,7 +32,6 @@ define(
 				App.View.meta_nav.render();
 			},
 			authenticated: function() {
-				console.log("auth", Cookie.get("_h_token"));
 				return null != Cookie.get("_h_token");
 			}
 		});

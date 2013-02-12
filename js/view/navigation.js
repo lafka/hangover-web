@@ -18,8 +18,6 @@ define(
 				var list = "<% _.each(links, function(item) { %> <li><%= item %></li> <% }); %>";
 				var itemTpl =_.template('<a href="<%= link %>" title="<%= title %>"><%= text %></a>');
 
-				console.log(this.links);
-
 				this.$el.html( _.template(list,
 					{links: _.map(this.links, function(X) { return itemTpl(X); }) }
 				) );
