@@ -1,34 +1,62 @@
 define(
 	["backbone",
 	 "cookie",
-	 "plugin/page"
+	 "plugin/app",
+	 "view/user/menu"
 	],
-	function(Backbone, Cookie, Page) {
+	function(Backbone, Cookie, App, Menu) {
 		Cookie = window.Cookie; // fuck me right?
-		Page.addNavbar("meta", $("#meta-navbar"));
+		App.addNavbar("meta", $("#meta-navbar"));
 
-		var ret = {
-			loggedIn : function() { return null != Cookie.get("_hou"); }
+		var authModel = Backbone.Model.extend({
+			defaults: {
+				username: "",
+				password: "",
+				token:    ""
+			},
+			initialize: function() {
+				if (this.authenticated()) {
+					this.set("username", Cookie.get("_h_user"));
+					this.set("token",    Cookie.get("_h_token"));
+				}
+			},
+			url: "api/auth/",
+			success: function(model, resp) {
+				Cookie.set("_h_token", resp.token);
+				Cookie.set("_h_user", resp.username);
+				App.View.meta_nav.render();
+				window.location.hash = "/user/profile";
+			},
+			error: function(model, resp) {
+				Cookie.unset("_h_token");
+				Cookie.unset("_h_user");
+				App.View.meta_nav.render();
+			},
+			authenticated: function() {
+				console.log("auth", Cookie.get("_h_token"));
+				return null != Cookie.get("_h_token");
+			}
+		});
+
+		App.Model.authentication = new authModel();
+		App.View.meta_nav = new Menu();
+		App.View.meta_nav.render({el: $("#meta-navbar")});
+
+
+		var ret    = {
+			routes : {
+				'user/profile' : 'profile',
+				'user/logout'  : 'logout',
+				'user/login'   : 'login'
+			},
+			defaultRoute : 'user/login'
 		};
 
-		var routes = {};
-		if (ret.loggedIn()) {
-			routes = {
-				'user/profile' : 'profile',
-				'user/logout'  : 'logout'
-			};
-		} else {
-			routes = {'' : 'login'};
-			ret.defaultRoute = 'user/login';
-			Page.addNav("meta", "/user/login", "Login");
-		}
-
 		var UserRouter = Backbone.Router.extend({
-			routes : routes
+			routes : ret.routes
 		});
 
 		ret.router       = new UserRouter();
-		Page.nav.meta.render();
 
 		return ret;
 	}

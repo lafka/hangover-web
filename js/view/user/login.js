@@ -1,32 +1,56 @@
 define(
 	["backbone",
-	 "backbone-forms"
+	 "plugin/app"
 	],
-	function(Backbone) {
+	function(Backbone, App) {
 		var view = Backbone.View.extend({
-			initialize: function() {
+			model: App.Model.authentication,
+			initialize: function() { },
+			template: _.template(' \
+				<form id="login" class="form-horizontal"> \
+					<fieldset> \
+						<legend>Login</legend> \
+						<div class="control-group"> \
+							<label class="control-label" for="input-user">Username</label> \
+							<div class="controls"> \
+								<input type="text" id="input-user" placeholder="Username"> \
+							</div> \
+						</div> \
+						<div class="control-group"> \
+							<label class="control-label" for="input-password">Password</label> \
+							<div class="controls"> \
+								<input type="password" id="input-password" placeholder="Password"> \
+							</div> \
+						</div> \
+						<div class="control-group"> \
+							<div class="controls"> \
+								<button type="submit" class="btn btn-primary">Login</button> \
+							</div> \
+						</div> \
+					</fieldset> \
+				</form>'),
+			events: {
+				'submit' : 'authenticate'
 			},
 			render: function() {
-				var Auth = Backbone.Model.extend({
-					schema: {
-						name     : 'Text',
-						password : 'Password' },
+				this.$el.html(this.template);
+			},
+			authenticate : function(e) {
+				e.preventDefault();
+				var auth = {
+					username: $('input#input-user', e.target).val(),
+					password: $('input#input-password', e.target).val()
+				};
+
+				this.model.save(auth, {
+					error : function() {
+						_.each($('.control-group input', e.target), function(A) {
+							$(A).closest('.control-group').addClass('error');
+						});
+						$('input#input-password').val('');
+					},
+					success: this.model.success
 				});
-
-				var user = new Auth({
-					name     : 'lafa',
-					password : 'god',
-				});
-
-				console.log(Backbone);
-
-				var form = new Backbone.Form({
-					model: user,
-					editorClass: "test 1 2 3"
-				}).render();
-
-				this.$el.append($("<div class=\"span4 offset3\" />").append(form.el));
-
 			}
 		});
 
