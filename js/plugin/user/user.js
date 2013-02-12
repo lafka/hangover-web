@@ -25,7 +25,6 @@ define(
 				Cookie.set("_h_token", resp.token);
 				Cookie.set("_h_user", resp.username);
 				App.View.meta_nav.render();
-				window.location.hash = "/user/profile";
 			},
 			error: function(model, resp) {
 				Cookie.unset("_h_token");

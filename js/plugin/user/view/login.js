@@ -28,12 +28,16 @@ define(
 							</div> \
 						</div> \
 					</fieldset> \
-				</form>'),
+				</form>',
 			events: {
-				'submit' : 'authenticate'
+				'submit #login' : 'authenticate'
 			},
-			render: function() {
-				this.$el.html(this.template);
+			render: function(warning) {
+				if (this.model.authenticated()) {
+					window.location.hash = "/user/profile";
+				} else {
+					this.$el.html(_.template(this.template)({warning : warning}));
+				}
 			},
 			authenticate : function(e) {
 				e.preventDefault();
@@ -49,8 +53,12 @@ define(
 						});
 						$('input#input-password').val('');
 					},
-					success: this.model.success
+					success: this.login
 				});
+			},
+			login: function(model, resp) {
+				model.success(model, resp);
+				App.View.current.render();
 			}
 		});
 
