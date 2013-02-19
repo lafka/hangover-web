@@ -2,7 +2,7 @@ define(
 	["backbone",
 	 "zepto",
 	 "plugin/app",
-	 "plugin/index",
+	 "plugin/index/index",
 	 "plugin/tracks/tracks",
 	 "plugin/schedule/schedule",
 	 "plugin/playlist/playlist",
@@ -20,7 +20,7 @@ define(
 
 			var callback = function(A) {
 				_.each(_.pairs(A.router.routes), function(X) {
-					X[0] = ('/' == X[0] ? 'index' : X[0]) || (A.defaultRoute || 'index');
+					X[0] = ('/' == X[0] ? 'index/main' : X[0]) || (A.defaultRoute || 'index/main');
 					A.router.on('route:' + X[1], function() {
 						var plugin = X[0].split("/");
 						var view = 'plugin/' + plugin[0] + '/view/' + plugin.slice(1).join("/")
@@ -35,6 +35,10 @@ define(
 			var routes = _.each(_.filter(plugins, filterFun), callback);
 
 			Backbone.history.start();
+
+			if ("" == window.location.hash) {
+				window.location.hash = 'index/main';
+			}
 
 			App.Nav.main.render();
 		};

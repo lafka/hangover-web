@@ -8,9 +8,9 @@ define(
 
 		var IndexRouter = Backbone.Router.extend({
 			routes: {
-				'': 'index',
+				'index/main': 'index',
 			},
-			defaultRoute: 'index'
+			defaultRoute: 'index/main'
 		});
 
 		return {router : new IndexRouter()};
