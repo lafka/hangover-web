@@ -6,9 +6,10 @@ define(
 	 "plugin/tracks/tracks",
 	 "plugin/schedule/schedule",
 	 "plugin/playlist/playlist",
-	 "plugin/user/user"
+	 "plugin/user/user",
+	 "plugin/index/404"
 	],
-	function(Backbone, $, App) {
+	function(Backbone, $, App, Index) {
 		// arguments is not a real array...
 		var plugins = Array.prototype.slice.call(arguments, 3);
 
@@ -24,6 +25,9 @@ define(
 					A.router.on('route:' + X[1], function() {
 						var plugin = X[0].split("/");
 						var view = 'plugin/' + plugin[0] + '/view/' + plugin.slice(1).join("/")
+						if (X[0].match(/^[^a-zA-Z0-9]/)) {
+							view = 'plugin/' + A.plugin + '/view/' + X[1];
+						}
 						require([view], function(PartialView) {
 							App.View.current = new PartialView({el: $("#content")});
 							App.View.current.render();
@@ -36,8 +40,8 @@ define(
 
 			Backbone.history.start();
 
-			if ("" == window.location.hash) {
-				window.location.hash = 'index/main';
+			if (window.location.hash.match(/#?\/?$/)) {
+				window.location.hash = '#/index/main'
 			}
 
 			App.Nav.main.render();

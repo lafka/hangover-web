@@ -4,7 +4,7 @@ define(
 	 "plugin/user/user"
 	],
 	function(Backbone, App, User) {
-		App.addNav("main", "/", "Home", "Home");
+		App.addNav("main", "/index/main", "Home", "Home");
 
 		var IndexRouter = Backbone.Router.extend({
 			routes: {
