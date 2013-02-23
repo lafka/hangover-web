@@ -1,4 +1,4 @@
 {
-        artist : "foo",
-        title  : "When in doubt, print 'em out",
+        "artist" : "foo",
+        "title"  : "When in doubt, print 'em out"
 }

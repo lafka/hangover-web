@@ -1,4 +1,4 @@
 {
-        artist : "foo",
-        title  : "You know you're a Quake addict when",
+        "artist" : "foo",
+        "title"  : "You know you're a Quake addict when"
 }

@@ -1,4 +1,4 @@
 {
-        artist : "Miguel de Cervante",
-        title  : "There was a phone call for you",
+        "artist" : "Miguel de Cervante",
+        "title"  : "There was a phone call for you"
 }
