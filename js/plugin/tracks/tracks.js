@@ -14,9 +14,33 @@ define(
 			defaultRoute: 'tracks/search',
 		});
 
+		var trackModel = Backbone.Model.extend({
+			defaults: {
+				id:     "",
+				title:  "Track name",
+				artist: "Artist"
+			},
+			url: function() {
+				return 'api/tracks/' + this.id;
+			}
+		});
+
+		var tracksCollection = Backbone.Collection.extend({
+			query: {
+				string: ""
+			},
+			model: trackModel,
+			url: function() {
+				return 'api/tracks/?q=' + this.query.string;
+			}
+		});
+
+		App.Collection.tracksQueue = new tracksCollection();
+
 		return {
 			router: new router(),
-			plugin: 'tracks'
+			plugin: 'tracks',
+			collection: tracksCollection
 		};
 	}
 );

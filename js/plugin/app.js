@@ -6,7 +6,8 @@ define(
 		var plugin = {
 			Nav:   {},
 			Model: {},
-			View:  {}
+			View:  {},
+			Collection: {}
 		};
 
 		plugin.addNavbar = function(nav, target) {
