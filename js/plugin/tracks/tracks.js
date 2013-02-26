@@ -25,7 +25,7 @@ define(
 			}
 		});
 
-		var tracksCollection = Backbone.Collection.extend({
+		App.Collection.tracks = Backbone.Collection.extend({
 			query: {
 				string: ""
 			},
@@ -35,12 +35,10 @@ define(
 			}
 		});
 
-		App.Collection.tracksQueue = new tracksCollection();
-
 		return {
 			router: new router(),
 			plugin: 'tracks',
-			collection: tracksCollection
+			collection: App.Collection.tracks
 		};
 	}
 );

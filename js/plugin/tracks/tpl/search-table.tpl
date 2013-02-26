@@ -1,3 +1,6 @@
+		<% if (0 === data.length) { %>
+			hello there is nothing here (<%= data.length %>)
+		<% } else { %>
 		<table class="table table-hover table-striped table-bordered">
 			<thead>
 				<tr>
@@ -8,10 +11,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% if (0 === data.length) { %>
-					nothing
-				<% } else {
-					_.each(data, function(elem) { %>
+					<% _.each(data, function(elem) { %>
 					<tr>
 						<td><%= elem.title %></td>
 						<td><%= elem.artist %></td>
@@ -19,6 +19,6 @@
 						<td><%= elem.album || '' %></td>
 					</tr>
 					<% }); %>
-				<% } %>
 			</tbody>
 		</table>
+		<% } %>

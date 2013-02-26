@@ -73,3 +73,24 @@
 
 #content { padding: 20px 0 10px; }
 
+/** Tracks **/
+.sidebar#tracks-collection { }
+.sidebar#tracks-collection a.icon {
+	height: 100%;
+	padding: 0 0 0 5px;
+	border: 1px solid transparent;
+}
+.sidebar#tracks-collection a.icon:first-child {
+	margin-right: 5px;
+}
+.sidebar#tracks-collection a.icon:hover {
+	background: #fafafa;
+	text-decoration: none;
+}
+.sidebar#tracks-collection a.icon:first-child:hover {
+	border-right: 1px solid #eee;
+}
+.sidebar#tracks-collection a.icon:last-child:hover {
+	border-left: 1px solid #ddd;
+}
+.sidebar#tracks-collection a.icon i { margin-top: 5px; }

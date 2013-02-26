@@ -18,7 +18,8 @@ define(
 					collection: undefined,
 					events: {
 						"change #search-tracks .search input" : 'render',
-						"keyup #search-tracks .search input" : 'autocomplete'
+						"keyup #search-tracks .search input" : 'autocomplete',
+						"click #search-tracks button" : 'autocomplete'
 					},
 					initialize: function() {
 						this.collection = new Tracks.collection();
@@ -26,6 +27,8 @@ define(
 					autocomplete: function(ev) {
 						this.collection.query.string = ev.target.value;
 						this.updateTable()
+						ev.preventDefault();
+						return false;
 					},
 					render: function() {
 						var view = this;
@@ -48,19 +51,22 @@ define(
 						require([
 							"text!plugin/tracks/tpl/search-table.tpl"
 						], function(table) {
-							view.collection.fetch({success: function() {
-								var tableVars = {data: view.collection.toJSON()};
-								$('table', view.$el).html(_.template(table, tableVars));
-							}});
+							view.collection.fetch({
+								success: function() {
+									var tableVars = {data: view.collection.toJSON()};
+									$('table', view.$el).html(_.template(table, tableVars));
+								},
+								error: function() { console.log('error'); }
+							});
 						});
 					}
 				});
 
 				this.sidebarView = new Sidebar({
-					el: $('<aside class="span4" />')
+					el: $('<aside class="span3" />')
 				});
 				this.contentView = new view({
-					el: $('<section class="span8" id="search-tracks" />')
+					el: $('<section class="span9" id="search-tracks" />')
 				});
 			},
 	 		render: function() {

@@ -1,5 +1,5 @@
-<section class="span9" id="search-tracks">
-	<h1>Search playlists</h1>
+<section class="span8" id="search-tracks">
+	<h1>Track search</h1>
 	<div class="span8">
 		<div class="search input-append">
 			<input class="span4" type="text" placeholder="Search for something">
