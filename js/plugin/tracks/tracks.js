@@ -14,7 +14,7 @@ define(
 			defaultRoute: 'tracks/search',
 		});
 
-		App.Model.track = Backbone.Model.extend({
+		App.Model.track = Backbone.RelationalModel.extend({
 			defaults: {
 				id:     "",
 				title:  "Track name",
