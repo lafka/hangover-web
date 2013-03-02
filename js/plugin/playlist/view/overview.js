@@ -4,11 +4,27 @@ define(
 	],
 	function(Backbone, App) {
 		var view = Backbone.View.extend({
-			model: undefined,
+			playlists: undefined,
 			initialize: function() {
+				this.playlists = new App.Collection.playlists();
 			},
 			render: function() {
-				this.$el.html("<h1>Playlists</h1><p>this is a playlist</p>")
+				var view = this;
+
+				require([
+					"text!plugin/playlist/tpl/overview.tpl",
+					"text!plugin/tracks/tpl/search-table.tpl"
+				], function(canvas, table) {
+					view.playlists.fetch({success: function(ev) {
+						view.renderCanvas.call(view, canvas, table);
+					}});
+				});
+			},
+			renderCanvas: function(canvas, table) {
+				this.$el.html( _.template( canvas, {
+					tpl: table,
+					data: this.playlists.toJSON()
+				}));
 			}
 		});
 

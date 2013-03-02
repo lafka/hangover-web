@@ -1,5 +1,7 @@
 		<% if (0 === data.length) { %>
-			hello there is nothing here (<%= data.length %>)
+			<div class="alert alert-warning">
+				Give me food, my stomach is empty
+			</div>
 		<% } else { %>
 		<table class="table table-hover table-striped table-bordered">
 			<thead>
@@ -13,10 +15,10 @@
 			<tbody>
 					<% _.each(data, function(elem) { %>
 					<tr>
-						<td><%= elem.title %></td>
-						<td><%= elem.artist %></td>
+						<td><a href="#/tracks/<%= elem.id %>"><%= elem.title %></a></td>
+						<td><a><%= elem.artist %></a></td>
 						<td><%= elem.length || '0:00' %></td>
-						<td><%= elem.album || '' %></td>
+						<td><a><%= elem.album || '' %></a></td>
 					</tr>
 					<% }); %>
 			</tbody>

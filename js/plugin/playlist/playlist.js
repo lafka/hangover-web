@@ -6,24 +6,29 @@ define(
 	function(Backbone, App, User) {
 		App.addNav("main", "/playlist/overview", "Playlists", "Playlists");
 
-		App.Model.playlist = Backbone.Model.extend({
+		App.Model.playlist = Backbone.RelationalModel.extend({
 			defaults: {
 				id: "",
 				name: "",
-				author: ""
+				author: "",
+				tracks: "",
 			},
-			tracks: undefined,
-			initialize: function() {
-				console.log("new playlist", this);
-				// @todo 2013-02-25 olav; add dynamic collection fetch url
-				this.tracks = new App.Collection.tracks()
-			}
+			relations: [{
+				type: Backbone.HasMany,
+				key: 'tracks',
+				relatedModel: App.Model.track,
+				autoFetch: true
+			}],
 		});
 
 		App.Collection.playlists = Backbone.Collection.extend({
+			station: "oslobass",
 			model: App.Model.playlist,
 			initialize: function() {
-				console.log("new playlist collection") }
+			},
+			url: function() {
+				return 'api/playlist/' + this.station + "/";
+			},
 		});
 
 		var router = Backbone.Router.extend({

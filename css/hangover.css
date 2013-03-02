@@ -1,15 +1,19 @@
-#content h1 {
+#content h1, #content h2 {
 	display: block;
 	width: 100%;
 	padding: 0;
-	margin-bottom: 20px;
-	font-size: 21px;
-	line-height: 40px;
+	margin-bottom: 0.9em;
+	line-height: 1.9em;
 	color: #333;
 	border: 0;
 	border-bottom: 1px solid #E5E5E5;
 	font-weight: normal;
 }
+
+#content h1 { font-size: 21px; font-weight: bold; }
+#content h2 { font-size: 17px; }
+
+#content h1 a, #content h2 a { color: #333; }
 
 .jumbotron.masthead {
 	padding: 70px 0 80px;
