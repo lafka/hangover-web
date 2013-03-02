@@ -14,7 +14,7 @@ define(
 			defaultRoute: 'tracks/search',
 		});
 
-		var trackModel = Backbone.Model.extend({
+		App.Model.track = Backbone.Model.extend({
 			defaults: {
 				id:     "",
 				title:  "Track name",
@@ -29,7 +29,7 @@ define(
 			query: {
 				string: ""
 			},
-			model: trackModel,
+			model: App.Model.track,
 			url: function() {
 				return 'api/tracks/?q=' + this.query.string;
 			}
