@@ -4,9 +4,10 @@ define(
 	],
 	function(Backbone, App) {
 		var view = Backbone.View.extend({
-			model: App.Model.authentication,
+			model: undefined,
 			warning: undefined,
 			initialize: function() {
+				this.model = App.Model.authentication
 			},
 			template: ' \
 				<form id="login" class="form-horizontal"> \
@@ -15,7 +16,7 @@ define(
 						<% if (warning) { %> \
 							<div class="alert alert-error"> \
 								<h4>Warning!</h4> \
-								<%= warning %> \
+								<%= _.isString(warning) ? warning : "You need to login to access this page" %> \
 							</div> \
 						<% } %> \
 						<div class="control-group"> \

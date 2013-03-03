@@ -56,11 +56,34 @@ define(
 		App.View.meta_nav = new Menu();
 		App.View.meta_nav.render({el: $("#meta-navbar")});
 
+		App.loadViewIfAuthenticated = function(plugin, view, opts) {
+			opts = _.defaults(opts, {
+				successArg: undefined,
+				errorArg: false // default to show error message
+			});
+
+			if (App.Model.authentication.authenticated()) {
+				App.loadView(App, plugin, view, true, opts.successArg);
+			} else {
+				App.setCurrentView(App, plugin, view);
+				App.loadView(App, "user", "login", false, opts.errorArg);
+			}
+		};
+
 		var UserRouter = Backbone.Router.extend({
 			routes : {
-				'user/profile' : function() { App.loadView(App, "user", "profile"); },
-				'user/logout'  : function() { App.loadView(App, "user", "login"); },
-				'user/login'   : function() { App.loadView(App, "user", "logout"); },
+				'user/profile' : 'profile',
+				'user/logout'  : 'logout',
+				'user/login'   : 'login',
+			},
+			profile : function() {
+				App.loadViewIfAuthenticated("user", "profile", {errorArg: true})
+			},
+			logout  : function() {
+				App.loadViewIfAuthenticated("user", "logout", {errorArg: true})
+			},
+			login   : function() {
+				App.loadViewIfAuthenticated("user", "profile")
 			},
 		});
 

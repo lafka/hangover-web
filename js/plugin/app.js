@@ -20,14 +20,25 @@ define(
 
 		plugin.addNavbar("main", $("#navbar"));
 
-		plugin.loadView = function(Ref, plugin, view) {
+		plugin.setCurrentView = function(Ref, plugin, view) {
 			view = "plugin/" + plugin + "/view/" + view;
+
 			require([view], function(View) {
 				Ref.View.current = new View({el: $("#content")});
-				Ref.View.current.render();
 			});
 		};
 
+		plugin.loadView = function(Ref, plugin, view, setCurrent, arg) {
+			setCurrent = undefined == setCurrent ? true : setCurrent;
+			view = "plugin/" + plugin + "/view/" + view;
+
+			require([view], function(View) {
+				var partial = new View({el: $("#content")});
+				if (setCurrent)
+					Ref.View.current = partial;
+				partial.render.call(partial, arg);
+			});
+		};
 
 		return plugin;
 	}
