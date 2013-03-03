@@ -58,13 +58,10 @@ define(
 
 		var UserRouter = Backbone.Router.extend({
 			routes : {
-				'user/profile' : 'profile',
-				'user/logout'  : 'logout',
-				'user/login'   : 'login'
+				'user/profile' : function() { App.loadView(App, "user", "profile"); },
+				'user/logout'  : function() { App.loadView(App, "user", "login"); },
+				'user/login'   : function() { App.loadView(App, "user", "logout"); },
 			},
-			profile: function() { App.loadView(App, "user", "profile"); },
-			login: function() { App.loadView(App, "user", "login"); },
-			logout: function() { App.loadView(App, "user", "logout"); },
 		});
 
 		return UserRouter;
