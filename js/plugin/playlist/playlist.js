@@ -13,6 +13,7 @@ define(
 				author: "",
 				tracks: "",
 			},
+			url: function() { return "api/playlist/" + this.id; },
 			relations: [{
 				type: Backbone.HasMany,
 				key: 'tracks',
@@ -37,7 +38,14 @@ define(
 				'playlist/:playlist' : 'view'
 			},
 			overview: function() {
-				App.loadView(App, "playlist", "overview");
+				App.loadViewIfAuthenticated("playlist", "overview", {
+					errorArg: true
+				});
+			},
+			view: function(id) {
+				App.loadViewIfAuthenticated("playlist", "view", {
+					successArg: id
+				});
 			}
 		});
 

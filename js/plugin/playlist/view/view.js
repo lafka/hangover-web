@@ -4,11 +4,23 @@ define(
 	],
 	function(Backbone, App) {
 		var view = Backbone.View.extend({
-			model: undefined,
-			initialize: function() {
+			model: App.Model.playlist,
+			initialize: function() { },
+			render: function(id) {
+				var view = this;
+
+				require([
+					"text!plugin/playlist/tpl/playlist.tpl",
+					"text!plugin/tracks/tpl/search-table.tpl"
+				], function(canvas, table) {
+					view.renderCanvas.call(view, id, canvas, table);
+				});
 			},
-			render: function() {
-				this.$el.html("<h1>Playlists</h1><p>this is a playlist</p>")
+			renderCanvas: function(id, canvas, table) {
+				this.$el.html( _.template( canvas, {
+					tpl: table,
+					data: this.model.findOrCreate(id).toJSON()
+				}));
 			}
 		});
 
