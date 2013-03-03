@@ -56,22 +56,17 @@ define(
 		App.View.meta_nav = new Menu();
 		App.View.meta_nav.render({el: $("#meta-navbar")});
 
-
-		var ret    = {
+		var UserRouter = Backbone.Router.extend({
 			routes : {
 				'user/profile' : 'profile',
 				'user/logout'  : 'logout',
 				'user/login'   : 'login'
 			},
-			defaultRoute : 'user/login'
-		};
-
-		var UserRouter = Backbone.Router.extend({
-			routes : ret.routes
+			profile: function() { App.loadView(App, "user", "profile"); },
+			login: function() { App.loadView(App, "user", "login"); },
+			logout: function() { App.loadView(App, "user", "logout"); },
 		});
 
-		ret.router       = new UserRouter();
-
-		return ret;
+		return UserRouter;
 	}
 );

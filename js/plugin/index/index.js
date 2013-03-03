@@ -8,11 +8,14 @@ define(
 
 		var IndexRouter = Backbone.Router.extend({
 			routes: {
-				'index/main': 'index',
+				'': 'index',
+				'/': 'index',
 			},
-			defaultRoute: 'index/main'
+			index: function() {
+				App.loadView(App, "index", "main");
+			}
 		});
 
-		return {router : new IndexRouter()};
+		return IndexRouter;
 	}
 );

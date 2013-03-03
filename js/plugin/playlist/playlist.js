@@ -4,7 +4,7 @@ define(
 	 "plugin/user/user"
 	],
 	function(Backbone, App, User) {
-		App.addNav("main", "/playlist/overview", "Playlists", "Playlists");
+		App.addNav("main", "/playlist", "Playlists", "Playlists");
 
 		App.Model.playlist = Backbone.RelationalModel.extend({
 			defaults: {
@@ -33,15 +33,14 @@ define(
 
 		var router = Backbone.Router.extend({
 			routes : {
-				'playlist/overview'  : 'overview',
+				'playlist'  : 'overview',
 				'playlist/:playlist' : 'view'
 			},
-			defaultRoute: 'playlist/overview'
+			overview: function() {
+				App.loadView(App, "playlist", "overview");
+			}
 		});
 
-		return {
-			router: new router(),
-			plugin: 'playlist'
-		}
+		return router;
 	}
 );

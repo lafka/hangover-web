@@ -22,7 +22,7 @@ define(
 						"click #search-tracks button" : 'autocomplete'
 					},
 					initialize: function() {
-						this.collection = new Tracks.collection();
+						this.collection = new App.Collection.tracks();
 					},
 					autocomplete: function(ev) {
 						this.collection.query.string = ev.target.value;

@@ -20,6 +20,15 @@ define(
 
 		plugin.addNavbar("main", $("#navbar"));
 
+		plugin.loadView = function(Ref, plugin, view) {
+			view = "plugin/" + plugin + "/view/" + view;
+			require([view], function(View) {
+				Ref.View.current = new View({el: $("#content")});
+				Ref.View.current.render();
+			});
+		};
+
+
 		return plugin;
 	}
 );

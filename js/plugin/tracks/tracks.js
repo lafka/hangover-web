@@ -4,14 +4,19 @@ define(
 	 "plugin/user/user"
 	],
 	function(Backbone, App, User) {
-		App.addNav("main", "/tracks/search", "Tracks", "Tracks");
+		App.addNav("main", "/tracks", "Tracks", "Tracks");
 
 		var router = Backbone.Router.extend({
 			routes : {
-				'tracks/search' : 'search',
+				'tracks'        : 'search',
 				'track/:track'  : 'view'
 			},
-			defaultRoute: 'tracks/search',
+			search: function() {
+				App.loadView(App, "tracks", "search");
+			},
+			view: function() {
+				console.log('viewing track');
+			}
 		});
 
 		App.Model.track = Backbone.RelationalModel.extend({
@@ -35,10 +40,6 @@ define(
 			}
 		});
 
-		return {
-			router: new router(),
-			plugin: 'tracks',
-			collection: App.Collection.tracks
-		};
+		return router;
 	}
 );

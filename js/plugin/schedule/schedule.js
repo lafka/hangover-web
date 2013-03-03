@@ -11,12 +11,8 @@ define(
 				'schedule/overview'  : 'overview',
 				'schedule/:schedule' : 'view'
 			},
-			defaultRoute: 'schedule/overview',
 		});
 
-		return {
-			router: new router(),
-			plugin: 'schedule'
-		};
+		return router;
 	}
 );
