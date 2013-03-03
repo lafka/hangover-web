@@ -1,9 +1,9 @@
 <form id="edit-profile" class="form-horizontal">
 	<fieldset>
-		<legend>Edit Profile</legend>
+		<legend><%= title %></legend>
 		<% if (alert) { %>
 			<div class="alert alert-<%= alert %>">
-				<% if (title) %><h4><%= title %></h4>
+				<% if (alertTitle) { %><h4><%= alertTitle %></h4><% } %>
 				<%= message %>
 			</div>
 		<% } %>
@@ -26,7 +26,7 @@
 
 		<div class="control-group">
 			<div class="controls">
-				<button type="submit" class="btn btn-primary">Update</button>
+				<button type="submit" class="btn btn-primary"><%= button %></button>
 			</div>
 		</div>
 	</fieldset>

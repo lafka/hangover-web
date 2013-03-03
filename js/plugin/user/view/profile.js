@@ -14,10 +14,10 @@ define(
 				'submit #edit-profile' : 'save',
 				'change #edit-profile input' : 'change',
 			},
-			render: function(alert, title, msg) {
+			render: function(alert, alertTitle, alertMsg) {
 				this.model = App.Model.user
 				var view = this
-				require(["text!plugin/user/tpl/profile.html"], function(tpl) {
+				require(["text!tpl/form.tpl"], function(tpl) {
 					view.$el.html( _.template(tpl, {elems:
 						[
 							{
@@ -40,9 +40,11 @@ define(
 								value: view.model.get("phone")
 							}
 						],
+						title: "Edit profile",
+						button: "Update",
 						alert: alert,
-						title: title,
-						message: msg}) );
+						alertTitle: alertTitle,
+						message: alertMsg}) );
 				});
 			},
 			change: function(e) {
