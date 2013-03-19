@@ -15,6 +15,10 @@
 
 #content h1 a, #content h2 a { color: #333; }
 
+#content h1 .btn-toolbar, #content h2 .btn-toolbar {
+	margin-top: 0;
+}
+
 .jumbotron.masthead {
 	padding: 70px 0 80px;
 	margin-bottom: 0;
