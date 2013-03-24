@@ -1,6 +1,6 @@
 define(
-	["backbone",
-	 "zepto"
+	['backbone',
+	 'jquery'
 	],
 	function(Backbone, $) {
 		var view = Backbone.View.extend({
@@ -9,14 +9,14 @@ define(
 				this.links = []; // let the local instance be array
 			},
 			events: {
-				"click a" : function(e) {
+				'click a' : function(e) {
 					e.preventDefault();
 					window.location.hash = $(e.target).attr('href');
 				},
 			},
 			render: function() {
 				var list = "<% _.each(links, function(item) { %> <li><%= item %></li> <% }); %>";
-				var itemTpl =_.template('<a href="<%= link %>" title="<%= title %>"><%= text %></a>');
+				var itemTpl =_.template("<a href=\"<%= link %>\" title=\"<%= title %>\"><%= text %></a>");
 
 				this.$el.html( _.template(list,
 					{links: _.map(this.links, function(X) { return itemTpl(X); }) }

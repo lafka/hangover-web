@@ -1,8 +1,8 @@
 define(
-	["backbone",
-	 "cookie",
-	 "plugin/app",
-	 "plugin/user/view/menu"
+	['backbone',
+	 'cookie',
+	 'app',
+	 'plugin/user/view/menu'
 	],
 	function(Backbone, Cookie, App, Menu) {
 		Cookie = window.Cookie; // fuck me right?
@@ -83,7 +83,7 @@ define(
 				App.loadViewIfAuthenticated("user", "logout", {errorArg: true})
 			},
 			login   : function() {
-				App.loadViewIfAuthenticated("user", "profile")
+				App.loadViewIfAuthenticated("user", "profile", {})
 			},
 		});
 

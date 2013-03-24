@@ -1,10 +1,10 @@
 define(
-	["backbone",
-	 "zepto",
-	 "plugin/app",
-	 "plugin/user/view/login",
-	 "plugin/tracks/tracks",
-	 "plugin/tracks/view/sidebar"
+	['backbone',
+	 'jquery',
+	 'app',
+	 'plugin/user/view/login',
+	 'plugin/tracks/tracks',
+	 'plugin/tracks/view/sidebar'
 	],
 	function(Backbone, $, App, LoginView, Tracks, Sidebar) {
 		var view = Backbone.View.extend({
@@ -17,9 +17,9 @@ define(
 				var view = Backbone.View.extend({
 					collection: undefined,
 					events: {
-						"change #search-tracks .search input" : 'render',
-						"keyup #search-tracks .search input" : 'autocomplete',
-						"click #search-tracks button" : 'autocomplete'
+						'change #search-tracks .search input' : 'render',
+						'keyup #search-tracks .search input' : 'autocomplete',
+						'click #search-tracks button' : 'autocomplete'
 					},
 					initialize: function() {
 						this.collection = new App.Collection.tracks();
@@ -34,8 +34,8 @@ define(
 						var view = this;
 						this.collection.fetch();
 						require([
-							"text!plugin/tracks/tpl/search.tpl",
-							"text!plugin/tracks/tpl/search-table.tpl"
+							'text!plugin/tracks/tpl/search.tpl',
+							'text!plugin/tracks/tpl/search-table.tpl'
 						], function(canvas, table) {
 							view.renderTpl.call(view, canvas, table);
 						})
@@ -49,7 +49,7 @@ define(
 					updateTable: function() {
 						var view = this;
 						require([
-							"text!plugin/tracks/tpl/search-table.tpl"
+							'text!plugin/tracks/tpl/search-table.tpl'
 						], function(table) {
 							view.collection.fetch({
 								success: function() {
@@ -63,10 +63,10 @@ define(
 				});
 
 				this.sidebarView = new Sidebar({
-					el: $('<aside class="span3" />')
+					el: $("<aside class=\"span3\" />")
 				});
 				this.contentView = new view({
-					el: $('<section class="span9" id="search-tracks" />')
+					el: $("<section class=\"span9\" id=\"search-tracks\" />")
 				});
 			},
 	 		render: function() {

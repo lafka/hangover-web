@@ -1,8 +1,8 @@
 define(
-	["backbone",
-	 "plugin/app",
+	['backbone',
+	 'app',
 	],
-	function(Backbone, App, User) {
+	function(Backbone, App) {
 		var IndexRouter = Backbone.Router.extend({
 			routes: {
 				'*404'      : '404',

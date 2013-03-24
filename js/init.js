@@ -5,22 +5,73 @@ require.config({
 		backbone     : 'vendor/backbone.js/backbone-0.9.10',
 		backbone_rel : 'vendor/backbone-relational.js/backbone-relational-0.7.1',
 		cookie       : 'vendor/cookie.js/cookie-0.4',
-		zepto        : 'vendor/zepto.js/zepto-1.0'
+		jquery       : 'vendor/jquery.js/jquery-1.9.1',
+		app          : 'app'
 	},
 	shim    : {
 		underscore : {
 			exports: '_' },
-		zepto: {
+		jquery: {
 			exports: '$' },
 		backbone: {
-			deps   : ['underscore', 'zepto'],
+			deps   : ['underscore', 'jquery'],
 			exports : 'Backbone' },
 		backbone_rel: {
-			deps: ['backbone']
-		}
+			deps: ['backbone'] },
+		app: {
+			deps: ['backbone_rel'],
+			exports: 'App' }
 	}
 });
 
-require(["hangover", "backbone_rel"], function(App) {
-	App.initialize();
+var deps =
+	['backbone',
+	 'jquery',
+	 'app',
+	 'backbone_rel',
+	 'plugin/index/index',
+	 'plugin/tracks/tracks',
+	 'plugin/schedule/schedule',
+	 'plugin/playlist/playlist',
+	 'plugin/user/user'
+	];
+
+require(deps, function(Backbone, $, App) {
+	var plugins = [],
+		pluginDeps = [],
+		obj = {};
+
+	// arguments is not a real array...
+	plugins = Array.prototype.slice.call(arguments, 4);
+	pluginDeps = deps.slice(4);
+
+	var filterFun,
+	    callback
+	    routes = {};
+
+	filterFun = function(plugin) {
+		return 'function' == typeof(plugin);
+	};
+
+	callback = function(acc, plugin) {
+		var routes = acc[0],
+		    i      = acc[1],
+		    path   = pluginDeps[i].split('/');
+		if ("plugin" === path[0]) {
+			console.log("init: plugin -> " + path[1]);
+			routes[path[1]] = new plugin();
+			return [routes, i + 1];
+		} else {
+			return acc;
+		}
+	};
+
+	var routesBuf = _.foldl(_.filter(plugins, filterFun), callback, [{}, 0]);
+	routes = routesBuf[0];
+
+	console.log("init: routes -> ", routesBuf[0]);
+
+	Backbone.history.start();
+
+	App.Nav.main.render();
 });
