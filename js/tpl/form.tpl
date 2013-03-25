@@ -1,4 +1,5 @@
 <%
+try { id } catch(e) { id = false }
 try { title } catch(e) { title = false }
 try { formClass } catch(e) { formClass = "form-horizontal" }
 try { controlGroups } catch(e) { controlGroups = true }
@@ -7,7 +8,7 @@ try { alertBox } catch(e) { alertBox = false }
 try { alertTitle } catch(e) { alertTitle = "" }
 try { alertMessage } catch(e) { alertMessage = "" }
 %>
-<form id="edit-profile" class="<%= formClass %>">
+<form id="<%= id %>" class="<%= formClass %>">
 	<fieldset>
 		<% if (title) { %>
 			<legend><%= title %></legend>
