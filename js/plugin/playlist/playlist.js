@@ -4,16 +4,18 @@ define(
 	 'plugin/user/user'
 	],
 	function(Backbone, App, User) {
-		App.addNav("main", "/playlist", "Playlists", "Playlists");
+		App.addNav("main", "/playlists", "Playlists", "Playlists");
 
 		App.Model.playlist = Backbone.RelationalModel.extend({
+			station: "oslobass",
 			defaults: {
-				id: "",
 				name: "",
 				author: "",
 				tracks: "",
 			},
-			url: function() { return "api/playlist/" + this.id; },
+			url: function() {
+				return "api/playlists/" + this.station + "/" + (this.id || "");
+			},
 			relations: [{
 				type: Backbone.HasMany,
 				key: 'tracks',
@@ -28,14 +30,14 @@ define(
 			initialize: function() {
 			},
 			url: function() {
-				return 'api/playlist/' + this.station + "/";
+				return 'api/playlists/' + this.station + "/";
 			},
 		});
 
 		var router = Backbone.Router.extend({
 			routes : {
-				'playlist'  : 'overview',
-				'playlist/:playlist' : 'view'
+				'playlists'  : 'overview',
+				'playlists/:playlist' : 'view'
 			},
 			overview: function() {
 				App.loadViewIfAuthenticated("playlist", "overview", {
