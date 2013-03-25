@@ -24,7 +24,7 @@ define(
 			},
 			editPlaylist: function(e) {
 				e.preventDefault();
-				console.log("edit: ", e);
+				window.location.hash = "/playlists/" + this.model.id;
 			},
 		});
 
