@@ -43,6 +43,48 @@ define(
 			});
 		};
 
+		app.View.UpdatingCollectionView = Backbone.View.extend({
+			initialize: function(opts) {
+				_(this).bindAll('add', 'remove');
+
+				_.extend(this, {partialOpts: {}}, opts);
+
+				this.subViews = [];
+				this.collection.each(this.add);
+				this.collection.bind('add', this.add);
+				this.collection.bind('remove', this.remove);
+			},
+			render: function() {
+				var view = this;
+
+				_(this.subViews).each(function(Partial) {
+					Partial.render();
+				});
+			},
+			add: function(model) {
+				console.log("created new one", model);
+				var buf = $("<div class=\"partial\"/>").appendTo(this.$el)
+				var partial = new this.partial(
+					_.extend(this.partialOpts, {model:model, el: buf})
+				);
+
+				this.subViews.push(partial);
+
+				if (!$(this.el).is(':empty')) {
+					$(buf).appendTo(this.$el);
+					partial.render();
+				}
+			},
+			remove: function(model) {
+				var partial = _(this.subViews).select(function(p) {
+					return p.model === model;
+				});
+
+				_(this.subViews).without(partial[0]);
+				$(partial[0].el).remove();
+			},
+		});
+
 		return app;
 	}
 );
