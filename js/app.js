@@ -15,7 +15,7 @@ define(
 		};
 
 		app.addNav = function(navbar, link, text, title) {
-			app.Nav[navbar].addNav.call(app.Nav[navbar], link, text, title);
+			return app.Nav[navbar].addNav.call(app.Nav[navbar], link, text, title);
 		};
 
 		app.addNavbar("main", $("#navbar"));
@@ -44,6 +44,9 @@ define(
 		};
 
 		app.View.UpdatingCollectionView = Backbone.View.extend({
+			rendered: false,
+			limit: -1,
+			wrapper: "<div class=\"partial\"/>",
 			initialize: function(opts) {
 				_(this).bindAll('add', 'remove');
 
@@ -55,33 +58,51 @@ define(
 				this.collection.bind('remove', this.remove);
 			},
 			render: function() {
-				var view = this;
+				var view = this,
+				    views = (this.limit >= 0)
+						? this.subViews.slice(0, this.limit)
+						: this.subViews;
 
-				_(this.subViews).each(function(Partial) {
+				_(views).each(function(Partial) {
 					Partial.render();
 				});
+				this.rendered = true;
 			},
 			add: function(model) {
-				console.log("created new one", model);
-				var buf = $("<div class=\"partial\"/>").appendTo(this.$el)
-				var partial = new this.partial(
-					_.extend(this.partialOpts, {model:model, el: buf})
-				);
+				if (0 == this.exists(model).length) {
+					var opts = {model: model};
+					if (this.wrapper) {
+						opts.el = $(this.wrapper).appendTo(this.$el)
+					}
 
-				this.subViews.push(partial);
+					var partial = new this.partial(
+						_.extend(this.partialOpts, opts)
+					);
 
-				if (!$(this.el).is(':empty')) {
-					$(buf).appendTo(this.$el);
-					partial.render();
+					this.subViews.push(partial);
+
+					if (!this.rendered) {
+						partial.render();
+						$(partial.el).appendTo(this.$el);
+					}
+				}
+			},
+			update: function(model) {
+				var view = this.exists(model);
+				if (0 != view.length) {
+					view[0].render();
 				}
 			},
 			remove: function(model) {
-				var partial = _(this.subViews).select(function(p) {
-					return p.model === model;
-				});
+				var partial = this.exists(model);
 
 				_(this.subViews).without(partial[0]);
 				$(partial[0].el).remove();
+			},
+			exists: function(model) {
+				return _(this.subViews).select(function(p) {
+					return p.model === model;
+				});
 			},
 		});
 

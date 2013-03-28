@@ -1,11 +1,10 @@
 define(
 	['backbone',
 	 'app',
-	 'plugin/user/user'
+	 'plugin/user/user',
+	 'plugin/playlist/view/sidebar'
 	],
-	function(Backbone, App, User) {
-		App.addNav("main", "/playlists", "Playlists", "Playlists");
-
+	function(Backbone, App, User, Sidebar) {
 		App.Model.playlist = Backbone.RelationalModel.extend({
 			station: "oslobass",
 			defaults: {
@@ -35,9 +34,13 @@ define(
 		});
 
 		var router = Backbone.Router.extend({
+			link: undefined,
 			routes : {
 				'playlists'  : 'overview',
 				'playlists/:playlist' : 'view'
+			},
+			initialize: function() {
+				App.addNav("main", "/playlists", "Playlists", "Playlists");
 			},
 			overview: function() {
 				App.loadViewIfAuthenticated("playlist", "overview", {
@@ -50,6 +53,14 @@ define(
 				});
 			}
 		});
+
+		var sidebar;
+		if (App.Model.authentication.authenticated()) {
+			var el = $('<aside class="span3" id="sidebar" />').prependTo($('body'));
+			sidebar = new Sidebar({el: el});
+			sidebar.render();
+			$('body').addClass('has-aside');
+		}
 
 		return router;
 	}

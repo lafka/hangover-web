@@ -9,4 +9,5 @@
 					</div>
 				</div>
 			</h2>
+			<table class="items"></table>
 		</div>

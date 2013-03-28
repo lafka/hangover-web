@@ -31,6 +31,7 @@ define(
 									el: $('<div class="children"/>')
 								});
 							}
+
 							view.renderCanvas.call(view, canvas, form);
 						},
 						error: function(ev, resp) {
