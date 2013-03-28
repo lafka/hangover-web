@@ -166,6 +166,7 @@ aside#sidebar {
 			font-size: 1em;
 			display: block;
 			float: left;
+			width: 65%;
 		}
 		aside#sidebar .children li span.links {
 			float: right;

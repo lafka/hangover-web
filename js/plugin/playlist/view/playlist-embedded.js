@@ -14,19 +14,9 @@ define(
 			},
 			initialize: function(opts) {
 				_.bindAll(this);
-
-				this.model.get('tracks').on('reset', function(ev) {
-					consol.log('tracks, reset', ev);
-				});
-
-
 				var view = this;
 
 				_.extend(this, opts);
-
-				this.model.get('tracks').on('add', function(track, collection) {
-					console.log('add', track, collection);
-				});
 
 				this.construct = _.once(function() {
 					view.tracksView = new App.View.UpdatingCollectionView({
@@ -58,7 +48,6 @@ define(
 			},
 			queuePlaylist: function(e) {
 				e.preventDefault();
-				console.log("queue: ", e);
 			},
 			editPlaylist: function(e) {
 				e.preventDefault();
