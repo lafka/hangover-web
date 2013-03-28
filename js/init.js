@@ -69,9 +69,13 @@ require(deps, function(Backbone, $, App) {
 	var routesBuf = _.foldl(_.filter(plugins, filterFun), callback, [{}, 0]);
 	routes = routesBuf[0];
 
-	console.log("init: routes -> ", routesBuf[0]);
-
 	Backbone.history.start();
+	Backbone.history.bind('route', function(e, b, c, d, f, g) {
+		$('.navbar ul.nav li').each(function() {
+			$(this).removeClass('active');
+		});
+		$('.navbar .nav a[href="/' + this.fragment + '"]').parent().addClass('active');
+	});
 
 	App.Nav.main.render();
 });
