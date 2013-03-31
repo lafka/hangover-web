@@ -37,39 +37,16 @@ var deps =
 	];
 
 require(deps, function(Backbone, $, App) {
-	var plugins = [],
-		pluginDeps = [],
-		obj = {};
-
-	// arguments is not a real array...
-	plugins = Array.prototype.slice.call(arguments, 4);
-	pluginDeps = deps.slice(4);
-
-	var filterFun,
-	    callback
-	    routes = {};
-
-	filterFun = function(plugin) {
-		return 'function' == typeof(plugin);
-	};
-
-	callback = function(acc, plugin) {
-		var routes = acc[0],
-		    i      = acc[1],
-		    path   = pluginDeps[i].split('/');
-		if ("plugin" === path[0]) {
-			console.log("init: plugin -> " + path[1]);
-			routes[path[1]] = new plugin();
-			return [routes, i + 1];
-		} else {
-			return acc;
+	var args = arguments;
+	_.each(deps, function(path ,i){
+		var arg = args[i];
+		if (path.match(/^plugin\/.*/) && 'function' == typeof(arg)) {
+			new arg();
 		}
-	};
-
-	var routesBuf = _.foldl(_.filter(plugins, filterFun), callback, [{}, 0]);
-	routes = routesBuf[0];
+	});
 
 	Backbone.history.start();
+
 	Backbone.history.bind('route', function(e, b, c, d, f, g) {
 		$('.navbar ul.nav li').each(function() {
 			$(this).removeClass('active');
