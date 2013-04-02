@@ -152,13 +152,13 @@ aside#sidebar {
 	aside#sidebar .children li {
 		border-top: 1px solid #000;
 		background-color: #1B1B1B;
-		background-image: -moz-linear-gradient(top, #111, #222);
-		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#111), to(#222));
-		background-image: -webkit-linear-gradient(top, #111, #222);
-		background-image: -o-linear-gradient(top, #111, #222);
-		background-image: linear-gradient(to bottom, #111, #222);
+		background-image: -moz-linear-gradient(top, #111, #000);
+		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#111), to(#000));
+		background-image: -webkit-linear-gradient(top, #111, #000);
+		background-image: -o-linear-gradient(top, #111, #000);
+		background-image: linear-gradient(to bottom, #111, #000);
 		background-repeat: repeat-x;
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff111111', endColorstr='#ff000000', GradientType=0);
 	}
 		aside#sidebar .children li > a {
 			padding: 5px 0px 3px 15px;
@@ -166,17 +166,33 @@ aside#sidebar {
 			font-size: 1em;
 			display: block;
 			float: left;
-			width: 65%;
+			width: 80%;
+			border-top: 1px solid transparent;
+			border-bottom: 1px solid transparent;
+		}
+		/* @todo lafa; add gradient borders for nice fade effect */
+		aside#sidebar .children li > a:hover {
+			text-decoration: none;
+			background: #000;
+			border-top: 1px solid #222;
+			border-bottom: 1px solid #222;
 		}
 		aside#sidebar .children li span.links {
-			float: right;
-			padding: 5px 5px 0 0;
+			float: left;
 		}
 		aside#sidebar .children li span.links a {
-			opacity: 0.5;
+			padding: 5px 5px 3px 5px;
+			display: block;
+			border-left: 1px solid #000;
 		}
 		aside#sidebar .children li span.links a:hover {
-			opacity: 0.7;
+			border-left: 1px solid #1a1a1a;
+		}
+		aside#sidebar .children li span.links a > i {
+			opacity: 0.5;
+		}
+		aside#sidebar .children li span.links a:hover > i {
+			opacity: 1;
 		}
 		aside#sidebar .children .clearfix {
 		}

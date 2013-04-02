@@ -33,8 +33,10 @@ define(
 			},
 		});
 
+		App.Instance.playlistsCollection = new App.Collection.playlists();
+
 		var router = Backbone.Router.extend({
-			link: undefined,
+			selector: undefined,
 			routes : {
 				'playlists'  : 'overview',
 				'playlists/:playlist' : 'view'

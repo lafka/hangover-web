@@ -7,7 +7,8 @@ define(
 			Nav:   {},
 			Model: {},
 			View:  {},
-			Collection: {}
+			Collection: {},
+			Instance: {}
 		};
 
 		app.addNavbar = function(nav, target) {
@@ -81,9 +82,9 @@ define(
 
 					this.subViews.push(partial);
 
-					if (!this.rendered) {
+					if (this.rendered) {
+						$(partial.$el).appendTo(this.$el);
 						partial.render();
-						$(partial.el).appendTo(this.$el);
 					}
 				}
 			},

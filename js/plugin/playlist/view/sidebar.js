@@ -8,18 +8,22 @@ define(
 		var view = Backbone.View.extend({
 			playlists: undefined,
 			initialize: function() {
-				this.playlists = new App.Collection.playlists();
 				var view = this;
+
+				this.playlists = App.Instance.playlistsCollection;
+
 				this.construct = _.once(function(embedView) {
 					view.playlistsView = new App.View.UpdatingCollectionView({
 						collection: view.playlists,
 						partial: EmbeddedPartial,
 						partialOpts: {tpl: embedView},
 						tpl: embedView,
-						el: $('<ul class="children"/>'),
-						wrapper: $('<li/>')
+						el: $('<ul class="children nav"/>'),
+						wrapper: "<li class=\"partial\"/>",
 					});
 				});
+
+				this.playlists.bind('add', this.appendPlaylist);
 			},
 			events: {
 				'submit #create-playlist-sidebar' : 'addPlaylist',
@@ -32,12 +36,17 @@ define(
 						view.playlists.fetch({success: function(model) {
 							view.construct(LineTpl);
 							view.$el.html(_.template(SidebarTpl));
-							$('.children', view.$el).replaceWith(view.playlistsView.el);
+							$('.children', view.$el).replaceWith(view.playlistsView.$el);
+
+							view.playlistsView.render();
 						}});
 				});
 			},
 			addPlaylist: function(e) {
 				console.log("add playlist to sidebar");
+			},
+			appendPlaylist: function(e) {
+				console.log("mjau mjau mjau", this, e);
 			}
 		});
 

@@ -7,7 +7,7 @@ define(
 		var view = Backbone.View.extend({
 			playlists: undefined,
 			initialize: function() {
-				this.playlists = new App.Collection.playlists();
+				this.playlists = App.Instance.playlistsCollection;
 			},
 			events: {
 				'submit #create-playlist' : 'addPlaylist',
