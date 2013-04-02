@@ -70,11 +70,24 @@ require(deps, function(Backbone, $, App) {
 	routes = routesBuf[0];
 
 	Backbone.history.start();
-	Backbone.history.bind('route', function(e, b, c, d, f, g) {
-		$('.navbar ul.nav li').each(function() {
-			$(this).removeClass('active');
+
+	Backbone.history.bind('route', function(e) {
+		if (undefined != e.selector) {
+			var navs = $('.nav ' + e.selector);
+
+			navs.closest('.nav').children().each( function() {
+				$(this).removeClass('active');
+			} );
+			navs.each(function() { $(this).parent().addClass('active'); });
+		}
+
+		var link = $('.nav a[href="/' + this.fragment + '"]');
+		link.closest('.nav').children().each( function() {
+				$(this).removeClass('active');
+			} );
+		link.each(function() {
+			$(this).parent().addClass('active');
 		});
-		$('.navbar .nav a[href="/' + this.fragment + '"]').parent().addClass('active');
 	});
 
 	App.Nav.main.render();
