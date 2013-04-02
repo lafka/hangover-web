@@ -15,8 +15,9 @@ define(
 				},
 			},
 			render: function() {
+				console.log("view: navigation, render -> ", this.links);
 				var list = "<% _.each(links, function(item) { %> <li><%= item %></li> <% }); %>";
-				var itemTpl =_.template("<a href=\"<%= link %>\" title=\"<%= title %>\"><%= text %></a>");
+				var itemTpl =_.template("<a href=\"<%= link %>\" title=\"<%= title %>\" class=\"<%= tag %>\"><%= text %></a>");
 
 				this.$el.html( _.template(list,
 					{links: _.map(this.links, function(X) { return itemTpl(X); }) }
@@ -25,12 +26,13 @@ define(
 			clear: function() {
 				this.links = [];
 			},
-			addNav: function(link, text, title) {
+			addNav: function(link, text, title, tag) {
 				link  = link  || "#";
 				text  = text  || "Unamed Link";
 				title = title || text;
+				tag   = tag   || ""
 
-				this.links.push({link: link, text: text, title: title});
+				this.links.push({link: link, text: text, title: title, tag: tag});
 			},
 		});
 

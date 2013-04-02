@@ -14,8 +14,8 @@ define(
 			app.Nav[nav] = new Nav({el: target});
 		};
 
-		app.addNav = function(navbar, link, text, title) {
-			return app.Nav[navbar].addNav.call(app.Nav[navbar], link, text, title);
+		app.addNav = function(navbar, link, text, title, tag) {
+			return app.Nav[navbar].addNav.call(app.Nav[navbar], link, text, title, tag);
 		};
 
 		app.addNavbar("main", $("#navbar"));

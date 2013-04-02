@@ -40,7 +40,9 @@ define(
 				'playlists/:playlist' : 'view'
 			},
 			initialize: function() {
-				App.addNav("main", "/playlists", "Playlists", "Playlists");
+				var link = 'nav-playlist';
+				App.addNav("main", "/playlists", "Playlists", "Playlists", link);
+				this.selector = '.' + link;
 			},
 			overview: function() {
 				App.loadViewIfAuthenticated("playlist", "overview", {
